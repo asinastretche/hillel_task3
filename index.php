@@ -46,3 +46,85 @@ $secondArr = [
     'five' => 13,
     'six' => 37,
 ];
+
+$arrDiff1 = array_diff($secondArr, $firstArr);
+$arrDiff2 = array_diff($firstArr, $secondArr);
+$arrIntersect = array_intersect($firstArr, $secondArr);
+
+$arrAllDiff1 = array_udiff_assoc($firstArr, $secondArr, function($a, $b) {
+    return ($a !== $b) ? 1 : 0;
+});
+$arrAllDiff2 = array_udiff_assoc($secondArr, $firstArr, function($a, $b) {
+    return ($a !== $b) ? 1 : 0;
+});
+$arrAllDiff = array_merge($arrAllDiff1, $arrAllDiff2);
+
+echo '<br>' . "найти все элементы которые отсутствуют в первом массиве и присутствуют во втором: ". print_r($arrDiff1, true);
+echo '<br>' . "найти все элементы которые присутствую в первом и отсутствуют во втором: ".print_r($arrDiff2, true);
+echo '<br>' . "найти все элементы значения которых совпадают: ". print_r($arrIntersect, true);
+echo '<br>' . "найти все элементы значения которых отличается: ". print_r($arrAllDiff, true);
+
+echo '<br>' .'<br>' .'Задание 3. $firstArr = [
+    \'one\' => 1,
+    \'two\' => [
+        \'one\' => 1,
+        \'seven\' => 22,
+        \'three\' => 32,
+    ],
+    \'three\' => [
+        \'one\' => 1,
+        \'two\' => 2,
+    ],
+    \'foure\' => 5,
+    \'five\' => [
+        \'three\' => 32,
+        \'foure\' => 5,
+        \'five\' => 12,
+    ],
+]; ';
+
+$firstArr = [
+    'one' => 1,
+    'two' => [
+        'one' => 1,
+        'seven' => 22,
+        'three' => 32,
+    ],
+    'three' => [
+        'one' => 1,
+        'two' => 2,
+    ],
+    'foure' => 5,
+    'five' => [
+        'three' => 32,
+        'foure' => 5,
+        'five' => 12,
+    ],
+];
+
+
+foreach ($firstArr as $key => $value) {
+    if (is_array($value)) {
+        $arrayValues = array_values($value);
+        if (isset($arrayValues[1])) {
+            $secondElements[$key] = $arrayValues[1];
+        }
+    }}
+
+$totalElements = 0;
+$sumElements = 0;
+while ($firstArr) {
+    $value = array_pop($firstArr);
+    $totalElements++;
+    if (is_array($value)) {
+        foreach ($value as $subValue) {
+            $firstArr[] = $subValue;
+        }
+    } elseif (is_numeric($value)) {
+        $sumElements += $value;
+    }
+}
+
+echo '<br>' . "получить все вторые элементы вложенных массивов: ".print_r($secondElements, true);
+echo '<br>' . "получить общее количество элементов в массиве: $totalElements";
+echo '<br>' . "получить сумму всех значений в массиве: $sumElements";
